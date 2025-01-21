@@ -46,6 +46,7 @@ const Page = () => {
     }
 
     if (result?.url) {
+      console.log("Result: ",result);
       router.replace("/dashboard");
     }
   };
