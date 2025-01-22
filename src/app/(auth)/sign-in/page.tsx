@@ -18,7 +18,7 @@ import { signInSchema } from "@/schemas/signInSchema";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 
-const Page = () => {
+export default function SignInForm () {
   const { toast } = useToast();
   const router = useRouter();
 
@@ -46,7 +46,6 @@ const Page = () => {
     }
 
     if (result?.url) {
-      console.log("Result: ",result);
       router.replace("/dashboard");
     }
   };
@@ -105,5 +104,3 @@ const Page = () => {
     </div>
   );
 };
-
-export default Page;

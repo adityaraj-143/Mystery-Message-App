@@ -25,24 +25,35 @@ export async function GET(request: Request) {
   try {
     const user = await UserModel.aggregate([
       {
-        $match: { id: userId },
+        $match: { _id: userId },
       },
       {
         $unwind: "$messages",
       },
       {
-        $sort: { "messages.createdAt": 1 },
+        $sort: { "messages.createdAt": -1 },
       },
       {
         $group: { _id: "$_id", messages: { $push: "$messages" } },
-      },
-    ]);
+      }
+    ]).exec();
 
-    if (!user || user.length === 0) {
+    if (!user) {
       return Response.json(
         {
           success: false,
           message: "User not found",
+        },
+        { status: 401 }
+      );
+
+    }
+    
+    if(user.length === 0) {
+      return Response.json(
+        {
+          success: false,
+          message: "No messages to display ",
         },
         { status: 401 }
       );

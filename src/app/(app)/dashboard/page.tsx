@@ -81,7 +81,7 @@ function UserDashboard() {
         setIsSwitchLoading(false);
       }
     },
-    [setIsLoading, setMessages, toast]
+    [setIsLoading, setMessages]
   );
 
   // Fetch initial state from the server
@@ -117,7 +117,7 @@ function UserDashboard() {
   };
 
   if (!session || !session.user) {
-    return <div></div>;
+    return <div>HHH</div>;
   }
 
   const { username } = session.user as User;

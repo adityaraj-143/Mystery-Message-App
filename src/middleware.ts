@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-// import {default} from "next-auth/middleware"
 import { getToken } from "next-auth/jwt";
 
 export const config = {
@@ -19,10 +18,15 @@ export async function middleware(request: NextRequest) {
   ) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
-  if (!token && url.pathname.startsWith("/dashboard")) {
-    return NextResponse.redirect(new URL("/sign-in", request.url));
+  
+  function checkLogin() {
+      if (!token && url.pathname.startsWith("/dashboard")) {
+        return NextResponse.redirect(new URL("/sign-in", request.url));
+      }
   }
 
+  setTimeout(checkLogin, 1000)
+  
   return NextResponse.next();
 }
 
